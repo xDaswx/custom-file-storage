@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Enviar Arquivo</title>
+</head>
+<body>
+  <form action="/api/upload/" method="post" enctype="multipart/form-data">
+    <input type="file" name="imagem">
+    <input type="submit" value="Enviar">
+  </form>
+
+  {{! <input type="file" id="fileInput" accept="image/*" />
+  <button onclick="sendImages()">Enviar</button> }}
+{{! 
+  <script>
+    function sendImages() {
+      const imageFiles = document.getElementById('fileInput').files;
+
+      const formData = new FormData();
+
+      for (let i = 0; i < imageFiles.length; i++) {
+        const file = imageFiles[i];
+        formData.append('imagem', file);
+      }
+
+      fetch('/api/upload/', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(result => {
+          // Processar a resposta do servidor
+          console.log(result);
+        })
+        .catch(error => {
+          // Lidar com erros
+          console.error(error);
+        });
+    }
+  </script> }}
+</body>
+</html>
