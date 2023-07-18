@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 
+
 const saveImage = async (buffer:Buffer,filetype:string) => {
     let imgname = `${uuidv4().split('-')[0]}.${filetype}`
     if (['png', 'jpg', 'jpeg'].includes(filetype)){
@@ -43,50 +44,58 @@ const mediaTamanho = ():number => {
     return dir.length
 }
 
-
+//Controler antigo que funcionava perfeitamente com o express-file-upload
 const uploadImage = async (req:Request, res: Response)=>{
-    try {
-        const numberOfFiles = mediaTamanho();
-        console.log('Quantidade de arquivos na pasta "public":', numberOfFiles);
+  console.log(req.file)
+  
+    // try {
+    //     const numberOfFiles = mediaTamanho();
+    //     console.log('Quantidade de arquivos na pasta "public":', numberOfFiles);
     
-        if (numberOfFiles > 10) {
-          return res.status(400).json({ message: 'Armazenamento cheio' });
-        }
+    //     if (numberOfFiles > 10) {
+    //       return res.status(400).json({ message: 'Armazenamento cheio' });
+    //     }
     
-    }
-    catch (err) {
-        console.log("Erro em uploadImage: ",err)
-        return res.status(500).json({ message: 'Erro ao verificar armazenamento' });
-    }
+    // }
+    // catch (err) {
+    //     console.log("Erro em uploadImage: ",err)
+    //     return res.status(500).json({ message: 'Erro ao verificar armazenamento' });
+    // }
 
+    
+    // let fileUrl:string = ''
 
-    let fileUrl:string = ''
+    // if (req.files && req.files.imagem) {
+    //     console.log(req.files.imagem)
+    //     const filesArray = Array.isArray(req.files) ? req.files : Object.values(req.files);
 
-    if (req.files && req.files.imagem) {
-        const filesArray = Array.isArray(req.files) ? req.files : Object.values(req.files);
-
-        if (Array.isArray(req.files.imagem) || Object.values(req.files).length > 1){
-            return res.status(400).json({message:'Somente uma imagem pode ser enviada'})
-        }
-        console.log(req.files.imagem)
-        const allowed = ['image/png','image/jpeg','video/mp4','image/gif']
-        for (const file of filesArray) {
-          if (allowed.includes(file.mimetype)){
-                const filetype:string= file.name.split('.').pop()
-                const url = await saveImage(file.data,filetype);
-                fileUrl = `${req.protocol}://${req.headers.host}/media/${url}`
-          }
-          else{
-            return res.status(400).json({message:'Apenas arquivos com formato png ou jpg'})
-          }
+    //     if (Array.isArray(req.files.imagem) || Object.values(req.files).length > 1){
+    //         return res.status(400).json({message:'Somente uma imagem pode ser enviada'})
+    //     }
+    //     console.log(req.files.imagem)
+    //     const allowed = ['image/png','image/jpeg','video/mp4','image/gif']
+    //     for (const file of filesArray) {
+    //       if (allowed.includes(file.mimetype)){
+    //             const filetype:string= file.name.split('.').pop()
+    //             const url = await saveImage(file.data,filetype);
+    //             fileUrl = `${req.protocol}://${req.headers.host}/media/${url}`
+    //       }
+    //       else{
+    //         return res.status(400).json({message:'Apenas arquivos com formato png ou jpg'})
+    //       }
  
-        }
-    }
-    else{
-        return res.json({message:"Os arquivos de imagens deve possuir o form-data name chamado imagem"})
-    }
-    res.json({message:"conteudo recebido!",fileUrl})
+    //     }
+    // }
+    // else{
+    //     return res.json({message:"Os arquivos de imagens deve possuir o form-data name chamado imagem"})
+    // }
+    // res.json({message:"conteudo recebido!",fileUrl})
 }
+
+const uploadImagev2 = (req:Request, res: Response) =>{
+  res.json(req.file)
+}
+
 
 const removeImage = async (req:Request, res: Response)=>{
     const {id} = req.params
@@ -95,4 +104,4 @@ const removeImage = async (req:Request, res: Response)=>{
     return res.json({message:message})
 }
 
-export {uploadImage,removeImage}
+export {uploadImagev2,removeImage}
