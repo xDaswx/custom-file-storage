@@ -3,6 +3,7 @@ import jimp from "jimp"
 import {v4 as uuidv4} from "uuid"
 import fs from 'fs';
 import path from 'path';
+import S3storage from "../utils/S3storage";
 
 
 
@@ -92,16 +93,50 @@ const uploadImage = async (req:Request, res: Response)=>{
     // res.json({message:"conteudo recebido!",fileUrl})
 }
 
-const uploadImagev2 = (req:Request, res: Response) =>{
-  res.json(req.file)
+const uploadImagev2 = async (req:Request, res: Response) =>{
+  const {file} = req
+  if(file){
+    const aws_resposne = await S3storage.savefile(file)
+    const serverUrl = `${req.protocol}://${req.headers.host}/media/`;
+    
+    res.json({message:"Conteudo recebido!",fileUrl:serverUrl+file.filename,file})
+  }
+  
 }
 
+const getImagePipe = (req:Request, res: Response) =>{
+  const {id} = req.params
+  if(id){
+    const aws_resposne = S3storage.getFileStream(id)
+
+    aws_resposne.on('error', (err: any) => {
+      if (err.code === 'AccessDenied') {
+        return res.status(403).json({ error: 'Acesso negado ao acessar o arquivo' });
+      }
+      return res.status(500).json({ error: 'Erro ao acessar o arquivo' });
+    });
+
+    return aws_resposne.pipe(res);
+  }
+  else{
+    return res.status(500).json({ error: 'Parâmetro id não foi informado' });
+  }
+  
+  
+
+}
 
 const removeImage = async (req:Request, res: Response)=>{
-    const {id} = req.params
-    if (id.length != 8 ) return res.json({message:'Nome incorreto'})
-    const message = removeImageFromMedia(id)
-    return res.json({message:message})
+  const {id} = req.params
+  if(id){
+    const aws_resposne = S3storage.deleteFile(id)
+
+    return res.status(500).json({ aws_resposne });
+
+  }
+  
+  return res.status(500).json({ error: 'Parâmetro id não foi informado' });
+
 }
 
-export {uploadImagev2,removeImage}
+export {uploadImagev2,getImagePipe,removeImage}

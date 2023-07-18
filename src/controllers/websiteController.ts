@@ -6,7 +6,8 @@ const indexPage = (req:Request, res: Response)=>{
 }
 
 const seeFilePage = (req:Request, res: Response)=>{
-    res.render('index')
+    const id = req.params
+    res.json({message:'response'})
 }
 
 

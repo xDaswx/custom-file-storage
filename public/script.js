@@ -88,7 +88,7 @@ function sendImages() {
     
     for (let i = 0; i < imageFiles.length; i++) {
         const file = imageFiles[i];
-        formData.append('imagem', file);
+        formData.append('image', file);
     }
     
     const xhr = new XMLHttpRequest();
