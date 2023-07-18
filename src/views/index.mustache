@@ -3,41 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <title>Enviar Arquivo</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
-<body style="background:black;color:white">
-  <form action="/api/upload/" method="post" enctype="multipart/form-data">
+<body>
+  <!-- <form action="/api/upload/" method="post" enctype="multipart/form-data">
     <input type="file" name="imagem">
     <input type="submit" value="Enviar">
-  </form>
+  </form>  -->
 
-  {{! <input type="file" id="fileInput" accept="image/*" />
-  <button onclick="sendImages()">Enviar</button> }}
-{{! 
-  <script>
-    function sendImages() {
-      const imageFiles = document.getElementById('fileInput').files;
+  <headers class="header">
+    <div class="meio">
+        <div class="home">
+            <h1><span class="material-symbols-outlined" style="/* margin-top: 10px; */background-color: #857dcc;border-radius: 10px;display: flex;gap: 5px;/* height: 0px; */padding: 5px;">database <p>StorageDS</p></span></h1>
+        </div>
+        <ul class="botoes">
+            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">upload_file<a href="index.html">Upload</a></span></li>
+            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">lab_profile<a href="index.html">Github</a></span></li>
+            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">api<a href="index.html">Api</a></span></li>
+        </ul>
+    </div>
+  </headers>
 
-      const formData = new FormData();
+  <main class="container">
+    <h1 id="site-title" >Free temporary file hosting for everyone!</h1>
+      
+    <div id="preview-container">
+      <div class="content">
+      </div>
+      <div class="content-info">
+        <h1>Your file information:</h1>
 
-      for (let i = 0; i < imageFiles.length; i++) {
-        const file = imageFiles[i];
-        formData.append('imagem', file);
-      }
+        </div>
+    </div>
+<div class="api-response">
+<h3 style="font-weight: 200;font-size: 15px;"></h3>
+                      <div class="progress" style="display: block;">
+        <div class="progress-bar" style="width:0%;">0%</div>
 
-      fetch('/api/upload/', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(result => {
-          // Processar a resposta do servidor
-          console.log(result);
-        })
-        .catch(error => {
-          // Lidar com erros
-          console.error(error);
-        });
-    }
-  </script> }}
+
+      </div>
+<div class="response-url">
+<input type="text" readonly style="
+    display: none;
+    width: 100%;
+    background: #181818;
+    color: white;
+    border: 0;
+    margin-top: 15px;
+    height: 30px;
+    text-align: center;">
+</div>
+    </div>
+
+
+      <form class="form-upload" action="/api/upload/" method="post" enctype="multipart/form-data">
+    
+        <input id="file-enviar" type="file" name="imagem" onchange="showPreview()">
+        <input id="enviar-paraservidor" onclick="sendImages()" value="Enviar">
+
+        <label for="file-enviar" id="file-drag-label">
+          <div class="upload">
+            <div class="icon" style="    text-align: center;">
+              <span style="font-size: 100px;" class="material-symbols-outlined">upload_file</span>
+            </div>
+             <p>Drag and drop choose file to upload your files.<br>Png, Jpg/Jpeg, Mp4 types are supported</p>
+          </div>
+
+        </label>
+      </form> 
+      <label for="enviar-paraservidor" id="buttons" style="display: none;gap: 50px;">
+          <div class="button" style="background: #992525;">
+            <p>Return</p>
+          </div>
+
+          <div class="button">
+            <p>Upload</p>
+          </div>
+        </label>
+      
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
