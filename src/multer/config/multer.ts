@@ -15,7 +15,7 @@ function uniqueID() {
 const storage = multer.diskStorage({
     destination: 'public/media',
     filename: function (req, file, callback) {
-      const uniqueFilename = uniqueID() + file.originalname
+      const uniqueFilename = uniqueID() + (file.filename).split('.').pop()
       callback(null, uniqueFilename);
     },
   });
