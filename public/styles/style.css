@@ -176,7 +176,20 @@ a {
     border: #857dcc 2px solid;
 }
 
-@media screen and (max-width: 768px){
-
+@media screen and (max-width: 468px){
+    .home{
+        display: none;
+    }
+    #file-drag-label{
+        width: 320px;
+        margin: 30px;
+    }
+    #preview-container {
+        width: 100%;
+        flex-direction: column;
+    }
+    .api-response {
+        width: 100%;
+    }
 
 }
