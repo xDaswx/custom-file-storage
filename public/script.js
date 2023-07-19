@@ -14,17 +14,38 @@ function showPreview() {
     
     const file = fileInput.files[0];
     
+    function formatFileSize(bytes) {
+        if (bytes >= 1024 * 1024) {
+          // Tamanho em MB
+          return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        } else if (bytes >= 1024) {
+          // Tamanho em KB
+          return (bytes / 1024).toFixed(2) + ' KB';
+        } else {
+          // Tamanho em bytes
+          return bytes + ' bytes';
+        }
+      }
+    
+    
     function info() {
+        
         for (let item in file) {
             if (['name', 'lastModifiedDate', 'size', 'type'].includes(item)) {
-                const title = document.createElement('h3');
-                const p = document.createElement('p');
-                title.innerText = item
+              const title = document.createElement('h3');
+              const p = document.createElement('p');
+              title.innerText = item;
+        
+              if (item === 'size') {
+                p.innerText = formatFileSize(file[item]);
+              } else {
                 p.innerText = file[item];
-                title.append(p)
-                contentInfo.appendChild(title);
+              }
+        
+              title.append(p);
+              contentInfo.appendChild(title);
             }
-        }
+          }
     }
     
     if (file.type.startsWith('image/') || file.type === 'image/gif') {
@@ -68,6 +89,7 @@ function showPreview() {
 }
 
 function sendImages() {
+
     buttons.style.display = 'none';
     
     const response = document.querySelector('.response-url input')
@@ -90,7 +112,7 @@ function sendImages() {
         const file = imageFiles[i];
         formData.append('image', file);
     }
-    
+    document.querySelector('.api-response h3').innerText = 'Waiting server response...'
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/upload/');
     
@@ -110,7 +132,7 @@ function sendImages() {
             response.setAttribute('value', json_response.fileUrl)
             updateProgressBar(100);
             document.querySelector('.api-response h3')
-                .innerText = json_response.message
+                .innerText = 'Server response: '+json_response.message
             uploading = false;
         } else {
             json_response = JSON.parse(xhr.response)

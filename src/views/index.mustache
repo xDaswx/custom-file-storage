@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Enviar Arquivo</title>
@@ -18,9 +18,8 @@
             <h1><span class="material-symbols-outlined" style="/* margin-top: 10px; */background-color: #857dcc;border-radius: 10px;display: flex;gap: 5px;/* height: 0px; */padding: 5px;">database <p>StorageDS</p></span></h1>
         </div>
         <ul class="botoes">
-            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">upload_file<a href="index.html">Upload</a></span></li>
-            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">lab_profile<a href="index.html">Github</a></span></li>
-            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">api<a href="index.html">Api</a></span></li>
+            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">upload_file<a href="/">Upload</a></span></li>
+            <li><span style="margin-top: 14px;display: flex;gap: 5px;font-size: 17px;" class="material-symbols-outlined">lab_profile<a target="_blank" href="https://github.com/xDaswx/custom-file-storage">Github</a></span></li>
         </ul>
     </div>
   </headers>
@@ -37,12 +36,12 @@
         </div>
     </div>
 <div class="api-response">
-<h3 style="font-weight: 200;font-size: 15px;"></h3>
-                      <div class="progress" style="display: block;">
-        <div class="progress-bar" style="width:0%;">0%</div>
+<h3 style="font-weight: 200;font-size: 15px;">Upload your file!</h3>
+<div class="progress" style="display: block;">
+    <div class="progress-bar" style="width:0%;">0%</div>
 
 
-      </div>
+    </div>
 <div class="response-url">
 <input type="text" readonly style="
     display: none;
@@ -72,15 +71,18 @@
 
         </label>
       </form> 
-      <label for="enviar-paraservidor" id="buttons" style="display: none;gap: 50px;">
-          <div class="button" style="background: #992525;">
-            <p>Return</p>
-          </div>
 
+      <div id="buttons" style="display: none;gap: 50px;">
+          <div class="button" style="background: #992525;">
+            <p><a href="/">Return</a></p>
+          </div>
+        <label for="enviar-paraservidor">
           <div class="button">
             <p>Upload</p>
           </div>
         </label>
+      </div>
+
       
   </main>
 
