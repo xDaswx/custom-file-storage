@@ -16,13 +16,13 @@ function showPreview() {
     
     function formatFileSize(bytes) {
         if (bytes >= 1024 * 1024) {
-          // Tamanho em MB
+          // tamanho em MB
           return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
         } else if (bytes >= 1024) {
-          // Tamanho em KB
+          // tamanho em KB
           return (bytes / 1024).toFixed(2) + ' KB';
         } else {
-          // Tamanho em bytes
+          // tamanho em bytes
           return bytes + ' bytes';
         }
       }
@@ -57,9 +57,9 @@ function showPreview() {
         img.style.width = '180px';
         img.style.borderRadius = '30px';
         img.onload = function () {
-            URL.revokeObjectURL(img.src); // Libera a URL criada para o preview
+            URL.revokeObjectURL(img.src); // libera a url criada para o preview
         };
-        img.src = URL.createObjectURL(file); // Cria uma URL temporária para a imagem
+        img.src = URL.createObjectURL(file); // cria uma url temporária para o vídeo
         uploadDiv.style.display = 'none';
         previewContainer.style.display = 'flex';
         previewContainerContent.appendChild(img);
@@ -75,13 +75,13 @@ function showPreview() {
         video.style.maxWidth = '100%';
         video.style.maxHeight = '400px';
         video.style.width = '500px';
-        video.style.borderRadius = '30px';
+        video.style.borderRadius = '10px';
         video.style.background = 'black';
         video.style.height = '300px';
         video.onload = function () {
-            URL.revokeObjectURL(video.src); // Libera a URL criada para o preview
+            URL.revokeObjectURL(video.src); // libera a url criada para o preview
         };
-        video.src = URL.createObjectURL(file); // Cria uma URL temporária para o vídeo
+        video.src = URL.createObjectURL(file); // cria uma url temporária para o vídeo
         previewContainer.style.display = 'flex';
         previewContainerContent.appendChild(video);
         buttons.style.display = 'flex';
@@ -126,6 +126,7 @@ function sendImages() {
     xhr.onload = function () {
         let json_response = ''
         if (xhr.status === 200) {
+            document.querySelector('.response-url').style.display = 'block';
             console.log('Upload concluído com sucesso!');
             json_response = JSON.parse(xhr.response)
             response.style.display = 'block';
@@ -153,6 +154,14 @@ function sendImages() {
     uploading = true
     xhr.send(formData);
 }
+
+document.getElementById('copyButton').addEventListener('click', () => {
+  document.getElementById('inputText').select();
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+  alert('A url foi copiada para a área de transferência!');
+});
+
 
 function updateProgressBar(progress) {
     const progressBar = document.querySelector('.progress-bar');
