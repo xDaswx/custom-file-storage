@@ -23,10 +23,6 @@ const getImagePipe = (req:Request, res: Response) =>{
       return res.status(500).json({ error: 'Parâmetro id não foi informado' });
     }
   }
-const seeImagePreview = (req:Request, res: Response) =>{
-    const id = req.params
-    res.render('preview',{id})
-}
 
 
-export {indexPage,getImagePipe,seeImagePreview}
+export {indexPage,getImagePipe}
