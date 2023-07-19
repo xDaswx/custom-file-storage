@@ -1,4 +1,5 @@
 import multer from 'multer';
+import path from 'path';
 
 function uniqueID() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -12,10 +13,11 @@ function uniqueID() {
     return uniqueID;
   }
 
-const storage = multer.diskStorage({
+  const storage = multer.diskStorage({
     destination: 'public/media',
     filename: function (req, file, callback) {
-      const uniqueFilename = uniqueID() + (file.filename).split('.').pop()
+      const ext = path.extname(file.originalname);
+      const uniqueFilename = uniqueID() + ext;
       callback(null, uniqueFilename);
     },
   });
