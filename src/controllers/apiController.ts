@@ -104,27 +104,6 @@ const uploadImagev2 = async (req:Request, res: Response) =>{
   
 }
 
-const getImagePipe = (req:Request, res: Response) =>{
-  const {id} = req.params
-  if(id){
-    const aws_resposne = S3storage.getFileStream(id)
-
-    aws_resposne.on('error', (err: any) => {
-      if (err.code === 'AccessDenied') {
-        return res.status(403).json({ error: 'Acesso negado ao acessar o arquivo' });
-      }
-      return res.status(500).json({ error: 'Erro ao acessar o arquivo' });
-    });
-
-    return aws_resposne.pipe(res);
-  }
-  else{
-    return res.status(500).json({ error: 'Parâmetro id não foi informado' });
-  }
-  
-  
-
-}
 
 const removeImage = async (req:Request, res: Response)=>{
   const {id} = req.params
@@ -139,4 +118,4 @@ const removeImage = async (req:Request, res: Response)=>{
 
 }
 
-export {uploadImagev2,getImagePipe,removeImage}
+export {uploadImagev2,removeImage}
