@@ -1,0 +1,22 @@
+<html style="height: 100%;">
+   <head>
+      <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+        <meta name="medium" content="video">
+        <meta property="og:video:width" content="2000" />
+        <meta property="og:video:height" content="2000" /> 
+        <meta property="og:type" content="video">
+        <meta property="og:video" content="http://localhost/media/{{id.id}}">
+
+      <title>StorageDS Media</title>
+   </head>
+   <body style="
+    background: #0e0e0e;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+    <img src="http://localhost/media/{{id.id}}">
+    <video width="320" height="240" controls>
+        <source src="http://localhost/media/{{id.id}}" type="video/mp4">
+    </video>
+    </body>
+</html>
